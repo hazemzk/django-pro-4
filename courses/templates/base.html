@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Educa{% endblock %}</title>
+        <link href="{% static "assets/css/main.css" %}" rel="stylesheet">
+    </head>
+    <body class='is-preload'>
+        <div id="wrapper">        
+                <div id="main">
+                    <div class="inner">
+                    <!-- Header -->
+                        <header id="header">
+                            <h1><a href="\" class="logo">Educa</a></h1>
+                            <ul class="icons">
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url "logout" %}">Sign out</a></li>
+                                {% else %}
+                                    <li><a href="{% url "login" %}">Sign in</a></li>
+                                {% endif %}
+                                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                                <li><a href="#" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+                                <li><a href="#" class="icon brands fa-github"><span class="label">github</span></a></li>
+                            </ul>
+                        </header>
+                    {% block content %}
+        
+                    {% endblock %}
+						{% block include_js %}
+						{% endblock %}
+                    </div>
+                </div>
+        	<!-- Sidebar -->
+			{% if request.user.is_authenticated %}
+				<div id="sidebar">
+					<div class="inner">
+						<!-- Search -->
+							<section id="search" class="alt">
+								<form method="post" action="#">
+									<input type="text" name="query" id="query" placeholder="Search" />
+								</form>
+							</section>
+						<!-- Menu -->
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="\">Homepage</a></li>
+									<li><a href="{% url 'courses:manage_course_list' %}">My Courses</a></li>
+									<li><a href="{% url 'student_course_list' %}">Enrolled Courses</a></li>
+                                    {% comment %} <li><a href="{% url 'completed_courses' %}">Completed Courses</a></li> {% endcomment %}
+                                    {% comment %} <li><a href="{% url 'profile' %}">My Profile</a></li> {% endcomment %}
+                                    {% comment %} <li><a href="{% url 'settings' %}">Settings</a></li> {% endcomment %}
+                                    {% comment %} <li><a href="{% url 'support' %}">Support</a></li> {% endcomment %}
+								</ul>
+							</nav>
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+            {% endif %}
+            </div>
+    		<!-- Scripts -->
+		    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+		    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+		    <script src="{% static 'assets/js/util.js' %}"></script>
+		    <script src="{% static 'assets/js/main.js' %}"></script>
+            <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            // DOM loaded
+            {% block domready %}
+            {% endblock %}
+            })
+            </script>
+        </div>
+    </body>
+</html>
+
