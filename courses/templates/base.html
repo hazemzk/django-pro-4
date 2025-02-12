@@ -48,9 +48,11 @@
 									<h2>Menu</h2>
 								</header>
 								<ul>
-									<li><a href="\">Homepage</a></li>
-									<li><a href="{% url 'courses:manage_course_list' %}">My Courses</a></li>
-									<li><a href="{% url 'student_course_list' %}">Enrolled Courses</a></li>
+									<li><a href="/">Homepage</a></li>
+									{% if request.user.is_authenticated and request.user.is_superuser %}
+                                        <li><a href="{% url 'courses:manage_course_list' %}">My Courses</a></li>
+									{% endif %}
+                                    <li><a href="{% url 'student_course_list' %}">Enrolled Courses</a></li>
                                     {% comment %} <li><a href="{% url 'completed_courses' %}">Completed Courses</a></li> {% endcomment %}
                                     {% comment %} <li><a href="{% url 'profile' %}">My Profile</a></li> {% endcomment %}
                                     {% comment %} <li><a href="{% url 'settings' %}">Settings</a></li> {% endcomment %}
